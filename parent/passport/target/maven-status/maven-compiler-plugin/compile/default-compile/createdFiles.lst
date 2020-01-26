@@ -1,0 +1,3 @@
+controller\loginAndRegister.class
+service\impl\LogAndRegImpl.class
+service\LogAndReg.class

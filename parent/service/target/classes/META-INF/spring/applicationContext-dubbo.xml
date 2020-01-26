@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo 
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+		
+	<!-- 给当前Provider自定义个名字 -->
+	<dubbo:application name="dubbo-ego-service"/>
+	<!-- 配置注册中心  -->
+	<dubbo:registry address="121.36.16.7:2181"  protocol="zookeeper"></dubbo:registry>
+	<!-- 配置端口 -->
+	<dubbo:protocol name="dubbo" port="20888"  ></dubbo:protocol>
+	
+	<!-- 注册登陆服务 -->
+	<dubbo:service interface="service.TbAdminService" ref="tbAdminService"></dubbo:service>	
+	<bean id="tbAdminService" class="service.impl.TbAdminServiceImpl"></bean>
+	
+	<!-- 注册商品服务 -->
+	<dubbo:service interface="service.TbItemService" ref="tbItemService"  timeout="1200000"></dubbo:service>
+	<bean id="tbItemService" class="service.impl.TbItemServiceImpl"></bean>
+	
+		<!-- 注册商品目录 -->
+	<dubbo:service interface="service.TbItemCatService" ref="tbItemCatService"  timeout="1200000"></dubbo:service>
+	<bean id="tbItemCatService" class="service.impl.TbItemCatServiceImpl"></bean>
+	
+	<!-- 目录参数目录 -->
+	 <dubbo:service interface="service.TbItemParamDubboService" ref="tbItemParamDubboService" timeout="1200000" ></dubbo:service>
+	 <bean id="tbItemParamDubboService" class="service.impl.TbItemParamDubboServiceImpl"></bean>
+	
+	<bean id="tbContentCategoryServiceImpl" class="service.impl.TbContentCategoryDubboServiceImpl"></bean>
+	<dubbo:service interface="service.TbContentCategoryDubboService" ref="tbContentCategoryServiceImpl" timeout="1200000"></dubbo:service>		
+	
+	
+	<bean id="tbContentDubboServiceImpl" class="service.impl.TbContentDubboServiceImpl"></bean>
+	<dubbo:service interface="service.TbContentDubboService" ref="tbContentDubboServiceImpl" timeout="1200000"></dubbo:service>
+	
+		<bean id="tbUserDubboServiceImpl" class="service.impl.TbUserDubboServiceImpl"></bean>
+	<dubbo:service interface="service.TbUserDubboService" ref="tbUserDubboServiceImpl" timeout="1200000"></dubbo:service>
+	
+	<import resource="../../applicationContext.xml"/>
+</beans>
+
